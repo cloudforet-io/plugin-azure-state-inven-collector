@@ -9,6 +9,8 @@ from spaceone.inventory.manager.virtual_machine_manager import *
 _LOGGER = logging.getLogger(__name__)
 MAX_WORKER = 20
 SUPPORTED_RESOURCE_TYPE = ['inventory.Server', 'inventory.CloudService']
+SUPPORTED_SCHEDULES = ['interval']
+
 FILTER_FORMAT = []
 
 
@@ -29,7 +31,8 @@ class CollectorService(BaseService):
         """
         capability = {
             'filter_format': FILTER_FORMAT,
-            'supported_resource_type': SUPPORTED_RESOURCE_TYPE
+            'supported_resource_type': SUPPORTED_RESOURCE_TYPE,
+            'supported_schedules': SUPPORTED_SCHEDULES
         }
         return {'metadata': capability}
 
