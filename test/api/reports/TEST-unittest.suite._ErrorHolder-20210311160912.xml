@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unittest.suite._ErrorHolder-20210311160912" tests="1" file="unittest/suite.py" time="0.000" timestamp="0001-01-01T00:00:00" failures="0" errors="1" skipped="0">
+	<testcase classname="" name="setUpClass (__main__.TestCollector)" time="0.000" timestamp="0001-01-01T00:00:00">
+		<error type="Exception" message="YAML Load Error: None"><![CDATA[Traceback (most recent call last):
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/utils.py", line 68, in load_yaml_from_file
+    with open(yaml_file, 'r') as f:
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/test/api/test_cloudservice_api.py", line 18, in setUpClass
+    test_config = utils.load_yaml_from_file(azure_cred)
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/utils.py", line 71, in load_yaml_from_file
+    raise Exception(f'YAML Load Error: {yaml_file}')
+Exception: YAML Load Error: None
+]]></error>
+	</testcase>
+</testsuite>

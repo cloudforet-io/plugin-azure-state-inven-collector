@@ -7,13 +7,14 @@ from spaceone.inventory.libs.schema.cloud_service import CloudServiceResource, C
 _LOGGER = logging.getLogger(__name__)
 
 
+
 class Compute(Model):
     instance_id = StringType()
     instance_state = StringType(choices=('STARTING', 'RUNNING', 'STOPPING', 'STOPPED', 'DEALLOCATING', 'DEALLOCATED'))
 
 
 class PowerState(Model):
-    status = StringType(choices=('RUNNING', 'STOPPED', 'UNHEALTHY'))
+    status = StringType(choices=('RUNNING', 'STOPPED', 'UNHEALTHY', 'IN_PROGRESS'))
 
 
 class Server(Model):

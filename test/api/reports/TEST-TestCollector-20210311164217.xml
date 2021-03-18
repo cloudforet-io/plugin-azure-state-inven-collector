@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestCollector-20210311164217" tests="3" file=".py" time="3.713" timestamp="2021-03-11T16:42:21" failures="0" errors="1" skipped="0">
+	<testcase classname="TestCollector" name="test_collect" time="0.026" timestamp="2021-03-11T16:42:17" file="test_cloudservice_api.py" line="34"/>
+	<testcase classname="TestCollector" name="test_init" time="0.005" timestamp="2021-03-11T16:42:17" file="test_cloudservice_api.py" line="24">
+		<system-out><![CDATA[{'metadata': {'filter_format': [],
+              'supported_features': ['garbage_collection'],
+              'supported_resource_type': ['inventory.Server',
+                                          'inventory.CloudService'],
+              'supported_schedules': ['interval']}}
+
+]]></system-out>
+	</testcase>
+	<testcase classname="TestCollector" name="test_verify" time="3.682" timestamp="2021-03-11T16:42:21" file="test_cloudservice_api.py" line="28">
+		<error type="ERROR_INTERNAL_API" message="
+	error_code = ERROR_UNKNOWN
+	status_code = INTERNAL
+	message =  set_connect() missing 1 required positional argument: 'secret_data'"><![CDATA[Traceback (most recent call last):
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/test/api/test_cloudservice_api.py", line 31, in test_verify
+    v_info = self.inventory.Collector.verify({'options': options, 'secret_data': self.azure_credentials})
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/grpc/_interceptor.py", line 216, in __call__
+    response, ignored_call = self._with_call(request,
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/grpc/_interceptor.py", line 254, in _with_call
+    call = self._interceptor.intercept_unary_unary(continuation,
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/pygrpc/client.py", line 195, in intercept_unary_unary
+    return self._intercept_call(continuation, client_call_details, request, False, False)
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/pygrpc/client.py", line 191, in _intercept_call
+    return self._retry_call(continuation, client_call_details,
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/pygrpc/client.py", line 180, in _retry_call
+    raise e
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/pygrpc/client.py", line 174, in _retry_call
+    self._check_error(response_or_iterator)
+  File "/Users/mzc01-jiyoon/Desktop/Plugin/plugin-azure-power-state/venv/venv/lib/python3.8/site-packages/spaceone/core/pygrpc/client.py", line 145, in _check_error
+    raise ERROR_INTERNAL_API(error_code=details_split[0], message=details_split[1])
+spaceone.core.error.ERROR_INTERNAL_API: 
+	error_code = ERROR_UNKNOWN
+	status_code = INTERNAL
+	message =  set_connect() missing 1 required positional argument: 'secret_data'
+]]></error>
+	</testcase>
+</testsuite>

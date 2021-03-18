@@ -18,7 +18,6 @@ class VirtualMachineManager(AzureManager):
             [VirtualMachineResponse, ...]
         """
 
-        resource_group = params['resource_group']
         vm_conn: VirtualMachineConnector = self.locator.get_connector(self.connector_name, **params)
         vm_conn.set_connect(params['secret_data'])
 
@@ -26,17 +25,18 @@ class VirtualMachineManager(AzureManager):
         start_time = time.time()
 
         vms = []
-        for vm in vm_conn.list_vms(resource_group.name):
-            vm_info = vm_conn.get_vm(resource_group.name, vm.name)
-
+        for vm in vm_conn.list_vms():
+            vm_info = vm_conn.get_vm(vm.id.split('/')[4], vm.name)
             power_state, instance_state = self._get_status_map(vm_info.instance_view.statuses)
 
             compute_vm = {
                 'compute': Compute({'instance_state': instance_state, 'instance_id': vm.id}, strict=False),
                 'power_state': PowerState({'status': power_state}, strict=False)
             }
-
             compute_vm_data = Server(compute_vm, strict=False)
+
+            # print("vm_data")
+            # print(compute_vm_data.to_primitive())
 
             compute_vm_resource = VirtualMachineResource({
                 'data': compute_vm_data,
@@ -57,7 +57,8 @@ class VirtualMachineManager(AzureManager):
             power_state = 'RUNNING'
         elif vm_state in ['STOPPED', 'DEALLOCATED']:
             power_state = 'STOPPED'
-
+        elif vm_state in ['STARTING']:
+            power_state = 'IN_PROGRESS'
         return power_state, vm_state
 
     @staticmethod
