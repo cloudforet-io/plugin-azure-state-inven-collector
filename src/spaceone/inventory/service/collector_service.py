@@ -5,6 +5,7 @@ from spaceone.core.service import *
 from spaceone.inventory.libs.manager import AzureManager
 from spaceone.inventory.manager.virtual_machine_manager import *
 from spaceone.inventory.manager.virtual_machine_scale_set_manager import *
+from spaceone.inventory.manager.sql_server_manager import *
 from spaceone.inventory.manager.subscription_manager import *
 
 
@@ -24,7 +25,8 @@ class CollectorService(BaseService):
 
         self.execute_managers = [
             'VirtualMachineManager',
-            'VmScaleSetManager'
+            'VmScaleSetManager',
+            'SqlServerManager'
         ]
 
     @check_required(['options'])
@@ -101,7 +103,6 @@ class CollectorService(BaseService):
 
             except Exception as e:
                 _LOGGER.error(f'failed to result {e}')
-
 
         print(f'############## TOTAL FINISHED {time.time() - start_time} Sec ##################')
 
