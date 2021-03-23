@@ -13,8 +13,6 @@ class PrivateEndpointProperty(Model):
 
 
 class PrivateLinkServiceConnectionStateProperty(Model):
-    actions_required = StringType(choices=('None', ''), serialize_when_none=False)
-    description = StringType(serialize_when_none=False)
     status = StringType(choices=('Approved', 'Disconnected', 'Pending', 'Rejected'), serialize_when_none=False)
 
 
@@ -34,7 +32,6 @@ class ServerPrivateEndpointConnection(Model):
 class FailoverGroup(Model):
     name = StringType(serialize_when_none=False)
     id = StringType()
-    location = StringType()
     databases = ListType(StringType, serialize_when_none=False)
     replication_state = StringType(serialize_when_none=False)
 
@@ -42,7 +39,6 @@ class FailoverGroup(Model):
 class SyncGroup(Model):
     id = StringType(serialize_when_none=False)
     name = StringType(serialize_when_none=False)
-    interval = IntType(serialize_when_none=False)
     last_sync_time = DateTimeType(serialize_when_none=False)
     sync_state = StringType(choices=('Error', 'Good', 'NotReady', 'Progressing', 'Warning'), serialize_when_none=False)
 
@@ -60,16 +56,11 @@ class SyncAgent(Model):
 class ReplicationLink(Model):
     id = StringType(serialize_when_none=False)
     name = StringType(serialize_when_none=False)
-    is_termination_allowed = BooleanType(serialize_when_none=False)
     partner_database = StringType(serialize_when_none=False)
-    partner_location = StringType(serialize_when_none=False)
-    partner_role = StringType(choices=('Copy', 'NonReadableSecondary', 'Primary', 'Secondary', 'Source'), serialize_when_none=False)
     percent_complete = IntType(serialize_when_none=False)
-    replication_mode = StringType(serialize_when_none=False)
     replication_state = StringType(choices=('CATCH_UP', 'PENDING', 'SEEDING', 'SUSPENDED'), serialize_when_none=False)
     role = StringType(choices=('Copy', 'NonReadableSecondary', 'Primary', 'Secondary', 'Source'), serialize_when_none=False)
     start_time = DateTimeType(serialize_when_none=False)
-    type = StringType(serialize_when_none=False)
 
 
 class Database(Model):
@@ -92,7 +83,7 @@ class ElasticPool(Model):
     state = StringType(choices=('Creating', 'Disabled', 'Ready'), serialize_when_none=False)
     databases = ListType(ModelType(Database))
     number_of_databases = IntType(serialize_when_none=False, default=0)
-    unit_display = StringType(serialize_when_none=False),
+    unit_display = StringType(serialize_when_none=False)
 
 
 class VirtualNetworkRule(Model):
@@ -104,9 +95,6 @@ class VirtualNetworkRule(Model):
 class SqlServer(Model):
     name = StringType()
     id = StringType()
-    kind = StringType(serialize_when_none=False)
-    location = StringType()
-    resource_group = StringType()
     private_endpoint_connections = ListType(ModelType(ServerPrivateEndpointConnection))
     state = StringType(serialize_when_none=False)
     failover_groups = ListType(ModelType(FailoverGroup), serialize_when_none=False)
