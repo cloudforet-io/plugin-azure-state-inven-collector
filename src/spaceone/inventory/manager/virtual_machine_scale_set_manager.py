@@ -65,9 +65,6 @@ class VmScaleSetManager(AzureManager):
 
             vm_scale_set_data = VirtualMachineScaleSet(vm_scale_set_dict, strict=False)
 
-            print("vm_scale_set_data")
-            print(vm_scale_set_data.to_primitive())
-
             vm_scale_set_resource = VirtualMachineScaleSetResource({
                 'data': vm_scale_set_data,
                 'reference': ReferenceModel(vm_scale_set_data.reference()),
