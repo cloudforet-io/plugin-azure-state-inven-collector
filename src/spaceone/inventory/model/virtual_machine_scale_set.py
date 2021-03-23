@@ -159,5 +159,5 @@ class VirtualMachineScaleSetResource(CloudServiceResource):
 
 class VirtualMachineScaleSetResponse(CloudServiceResponse):
     match_rules = DictType(ListType(StringType), default={'1': ['reference.resource_id']})
-    resource_type = StringType(default='inventory.VirtualMachineScaleSet')
+    resource_type = StringType(default='inventory.CloudService')
     resource = ModelType(VirtualMachineScaleSetResource)
