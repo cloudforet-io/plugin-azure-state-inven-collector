@@ -117,5 +117,5 @@ class SqlServerResource(CloudServiceResource):
 
 class SqlServerResponse(CloudServiceResponse):
     match_rules = DictType(ListType(StringType), default={'1': ['reference.resource_id']})
-    resource_type = StringType(default='inventory.Server')
+    resource_type = StringType(default='inventory.CloudService')
     resource = ModelType(SqlServerResource)
