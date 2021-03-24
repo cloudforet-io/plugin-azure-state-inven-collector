@@ -30,7 +30,7 @@ class VirtualMachineManager(AzureManager):
             power_state, instance_state = self._get_status_map(vm_info.instance_view.statuses)
 
             compute_vm = {
-                'compute': Compute({'instance_state': instance_state, 'instance_id': vm.id}, strict=False),
+                'compute': Compute({'instance_state': instance_state, 'instance_id': vm.id.lower()}, strict=False),
                 'power_state': PowerState({'status': power_state}, strict=False)
             }
             compute_vm_data = Server(compute_vm, strict=False)
