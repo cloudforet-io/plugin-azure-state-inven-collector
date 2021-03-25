@@ -48,9 +48,11 @@ class VmScaleSetManager(AzureManager):
                 })
 
                 vm_instance_dict = self.get_vm_instance_status_profile(self, vm_instance, vm_scale_set_conn, vm_scale_set_dict['resource_group'], vm_scale_set_dict['name'])
-                vm_instance_dict.update({
-                    'vm_instance_status_display': vm_instance_dict['vm_instance_status_profile']['vm_agent']['display_status']
-                })
+                if vm_instance_dict['vm_instance_status_profile'].get('vm_agent') is not None:
+                    vm_instance_dict.update({
+                        'vm_instance_status_display': vm_instance_dict['vm_instance_status_profile']['vm_agent']['display_status']
+                    })
+
                 vm_instances_list.append(vm_instance_dict)
 
             vm_scale_set_dict['vm_instances'] = vm_instances_list
@@ -94,11 +96,11 @@ class VmScaleSetManager(AzureManager):
     def get_vm_instance_view_dict(self, vm_instance_conn, resource_group, vm_scale_set_name, instance_id):
         vm_instance_status_profile = vm_instance_conn.get_vm_scale_set_instance_view(resource_group, vm_scale_set_name, instance_id)
         vm_instance_status_profile_dict = self.convert_nested_dictionary(self, vm_instance_status_profile)
-
-        for status in vm_instance_status_profile_dict['vm_agent']['statuses']:
-            vm_instance_status_profile_dict['vm_agent'].update({
-                    'display_status': status['display_status']
-            })
+        if vm_instance_status_profile_dict.get('vm_agent') is not None:
+            for status in vm_instance_status_profile_dict['vm_agent']['statuses']:
+                vm_instance_status_profile_dict['vm_agent'].update({
+                        'display_status': status['display_status']
+                })
 
         return vm_instance_status_profile_dict
 
