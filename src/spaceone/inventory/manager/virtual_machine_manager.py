@@ -27,10 +27,11 @@ class VirtualMachineManager(AzureManager):
         vms = []
         for vm in vm_conn.list_vms():
             vm_info = vm_conn.get_vm(vm.id.split('/')[4], vm.name)
+            reference_id = self.get_reference_id(vm.id)
             power_state, instance_state = self._get_status_map(vm_info.instance_view.statuses)
 
             compute_vm = {
-                'compute': Compute({'instance_state': instance_state, 'instance_id': vm.id.lower()}, strict=False),
+                'compute': Compute({'instance_state': instance_state, 'instance_id': reference_id}, strict=False),
                 'power_state': PowerState({'status': power_state}, strict=False)
             }
             compute_vm_data = Server(compute_vm, strict=False)
@@ -68,3 +69,12 @@ class VirtualMachineManager(AzureManager):
                 return status.code.split('/')[-1].upper()
 
         return None
+
+    @staticmethod
+    def get_reference_id(vm_id):
+        a = vm_id[vm_id.find('resourceGroups/') + 15:]  # ex. a = JIYOON-RG-0324/providers/Microsoft.Compute/virtualMachines/jiyoon-vm-real'
+        resource_group = a[: a.find('/')].lower()  # ex. resource_group = JIYOON-RG-0324
+        header = vm_id[:vm_id.find('resourceGroups/')+15]
+        footer = vm_id[vm_id.find('providers'):]
+
+        return f'{header}{resource_group}/{footer}'
