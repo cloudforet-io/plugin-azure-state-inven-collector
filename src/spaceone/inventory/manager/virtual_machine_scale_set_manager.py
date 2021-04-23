@@ -47,7 +47,7 @@ class VmScaleSetManager(AzureManager):
                     'instance_count': instance_count
                 })
 
-                vm_instance_dict = self.get_vm_instance_status_profile(self, vm_instance, vm_scale_set_conn, vm_scale_set_dict['resource_group'], vm_scale_set_dict['name'])
+                vm_instance_dict = self.get_vm_instance_dict(self, vm_instance, vm_scale_set_conn, vm_scale_set_dict['resource_group'], vm_scale_set_dict['name'])
                 if vm_instance_dict['vm_instance_status_profile'].get('vm_agent') is not None:
                     vm_instance_dict.update({
                         'vm_instance_status_display': vm_instance_dict['vm_instance_status_profile']['vm_agent']['display_status']
@@ -84,7 +84,7 @@ class VmScaleSetManager(AzureManager):
 
     # Get instances of a virtual machine from the VM scale set
     @staticmethod
-    def get_vm_instance_status_profile(self, vm_instance, vm_instance_conn, resource_group, vm_scale_set_name):
+    def get_vm_instance_dict(self, vm_instance, vm_instance_conn, resource_group, vm_scale_set_name):
         vm_instance_dict = self.convert_nested_dictionary(self, vm_instance)
         vm_instance_dict.update({
             'vm_instance_status_profile': self.get_vm_instance_view_dict(self, vm_instance_conn, resource_group, vm_scale_set_name, vm_instance.instance_id),
