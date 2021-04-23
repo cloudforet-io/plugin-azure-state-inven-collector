@@ -121,7 +121,7 @@ class VirtualMachineScaleSetVM(Model):
     instance_id = IntType()
     id = StringType()
     provisioning_state = StringType(choices=('Failed', 'Succeeded'))
-    # vm_instance_status_profile = ModelType(VirtualMachineExtensionVMInstanceView, serialize_when_none=False)
+    vm_instance_status_profile = ModelType(VirtualMachineExtensionVMInstanceView, serialize_when_none=False)
     vm_instance_status_display = StringType(serialize_when_none=False)
 
 
